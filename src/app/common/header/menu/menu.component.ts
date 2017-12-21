@@ -13,7 +13,7 @@ export class MenuComponent {
   constructor(private router: Router){
 
   }
-  repository(){
-    this.router.navigate(['/repository']);
+  project(){
+    this.router.navigate(['/project']).then();
   }
 }

@@ -4,6 +4,7 @@
   padding: 20px 0;
   border: 0;
   border-bottom: 1px solid #aaaaaa;
+  background: rgba(255,255,255,1);
 }
 .menu-container>.menu-content{
   position: relative;

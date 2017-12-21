@@ -26,11 +26,11 @@ export const ServerInfo = {
     }, {
       name: 'repositoryList',
       type: 'post',
-      url: '/daily/developer/repository/list'
+      url: '/daily/developer/project/list'
     }, {
       name: 'repositoryUpdate',
       type: 'post',
-      url: '/daily/developer/repository/update'
+      url: '/daily/developer/project/update'
     }
   ]
 };

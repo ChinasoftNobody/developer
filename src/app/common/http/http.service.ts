@@ -1,22 +1,33 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from "rxjs";
 /**
  * Created by Administrator on 2017/5/28.
  */
 @Injectable()
 export class HttpService {
-  constructor(private http: Http) {
+  constructor(private http: HttpClient) {
   }
 
-  post(url: string, body: any, resolve?: (value: any) => void, failed?: (error: string) => void) {
-    this.http.post(url, body).subscribe(data => {
-      if (data.json().status === 'failed') {
-        failed(data.json().result);
-      } else {
-        resolve(data.json().result);
+  postForResponse<T>(url: string, body: any): Observable<Response<T>> {
+    return this.http.post<Response<T>>(url, body);
+  };
+
+  post<T>(url:string,body:any,success?:(result:T) =>void,failed?:(e:string) => void){
+    this.postForResponse<T>(url,body).subscribe(response=>{
+      if(response.success){
+        success(response.result);
+      }else {
+        failed(response.message);
       }
-    }, error => {
-      console.error(error);
-    });
+    },e=>{
+      console.error("http request failed" );
+    })
   }
+
+}
+export interface Response<T>{
+  success: boolean;
+  message: string;
+  result: T;
 }
