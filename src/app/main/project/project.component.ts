@@ -12,19 +12,19 @@ import {HttpService} from "../../common/http/http.service";
 })
 export class ProjectComponent implements OnInit{
   ngOnInit(): void {
-    this.httpService.post("/developer/project/queryProjects",{
+    this.httpService.post<Project[]>("/developer/project/queryProjects",{
       account:'2339542185',
       pageSize:10,
       pageNumber:1
     },result => {
       this.data = result;
-      console.log(this.data);
+      this.dataSource = new MatTableDataSource(this.data);
     })
   }
   constructor(private httpService: HttpService){}
   displayedColumns = ['account', 'name', 'url', 'projectType'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
-  data:any={};
+  data:Project[] =[];
+  dataSource = new MatTableDataSource(this.data);
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -45,7 +45,3 @@ export interface Project {
   urlType: string;
   projectType: string;
 }
-
-const ELEMENT_DATA: Project[] = [
-  {id: 1, name: 'Hydrogen', account: '1.0079', url:'', urlType:'',projectType:''}
-];
